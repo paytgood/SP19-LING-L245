@@ -1,0 +1,154 @@
+#Basic Unix
+#Counting Exercises
+$ python3 WikiExtractor.py –infn [fowiki-20190401-pages-articles.xml.bz2]
+#read file
+
+$ sed 's/[^a-zA-Z]\+/\n/g' < wiki.txt |
+sort -r |
+uniq -c > wiki.hist
+#Tokenise the text into a sequence of words (sed),
+#Sort the words (sort -r), and
+#Count duplicates (uniq -c).
+
+sed 5q < wiki.txt
+#First five lines of file
+
+sed 's/[^ a-zA-Z]\+/\n/g' < wiki.txt | sed 5q
+#Verify tokens are in file
+
+sed 's/[^ a-zA-Z]\+/\n/g' < wiki.txt | 
+sort -r | 
+sed 10q
+# lexicographic
+
+sed 's/[^ a-zA-Z]\+/\n/g' < wiki.txt | 
+sort -r | 
+uniq -c | 
+sed 5q
+#Count repeated tokens
+
+#More Counting Exercises
+uconv -x upper < wiki.txt | 
+sed 's/[^ a-zA-Z]\+/\n/g' | 
+sort -r | 
+uniq -c | 
+sed 5q
+#Lower case to upper
+
+uconv -x upper < wiki.txt | 
+sed 's/[^ a-zA-Z]\+/\n/g' | 
+sort -r | 
+uniq –c
+#Sequences of vowels
+
+uconv -x upper < wiki.txt | 
+sed 's/[^ a-zA-Z]\+/\n/g' | 
+sort -r | 
+uniq –c
+
+man sort
+#Doc for sort
+
+sed 's/а/б/g'
+#All a to 6
+
+sed 's/[^ a-zA-Z]\+/\n/g'
+
+#Sort
+sort -d	
+#dictionary order
+sort -f	
+#fold case
+sort -n	
+#numeric order
+sort -r	
+#reverse order
+sort -nr	
+#reverse numeric order
+sort -u	
+#remove duplicates
+sort +1	
+#start with field 1 (starting from 0)
+sort +0.50
+#start with 50th character
+sort +1.5	
+#start with 5th character of field 1
+
+echo "?" | rev
+#Reverse 
+
+echo "?" | rev  | rev
+#Reverse reverse
+
+#Bigrams
+sed 's/[^ a-zA-Z]\+/\n/g' < wiki.txt > wiki.words
+tail -n +2 wiki.words > wiki.nextwords
+# wordi and wordi+1
+
+
+paste wiki.words wiki.nextwords
+#input for counting
+
+sed 's/[^ a-zA-Z]\+/\n/g' < wiki.txt | grep -v '^$' > wiki.words
+tail -n +2 wiki.words > wiki.nextwords
+paste wiki.words wiki.nextwords | sort | uniq -c > wiki.bigrams
+
+sort -nr < wiki.bigrams | sed 10q
+#ten most frequent words
+
+#Shell script
+#File:
+bigram.sh
+	sed 's/[^ a-zA-Z]\+/\n/g' | grep -v '^$' > $$words
+tail -n +2 $$words > $$nextwords
+paste $$words $$nextwords |
+sort | uniq -c
+# remove the temporary files
+rm $$words $$nextwords
+
+sh bigram.sh < wiki.txt > wiki.bigrams
+
+#grep
+$ grep '?' wiki.txt | sed 5q
+#Extract lines cont. 
+
+grep '? wiki.txt |
+sh bigram.sh | sort -nr | sed 5q
+#Any expression
+
+grep gh	
+#find lines containing gh
+grep '^con'	
+#find lines starting with con
+grep 'ing$'
+#find lines ending with ing
+
+grep -v
+#prints lines that do not match
+grep -c 
+# counts the matches instead of printing
+grep -i
+#case distinctions are ignored
+
+
+grep '[A-Z]'	
+#lines with an uppercase character
+grep '^[A-Z]'	
+#lines starting with an uppercase character
+grep '[A-Z]$'	
+#lines ending with an uppercase character
+grep '^[A-Z]\+$'	
+#lines with all uppercase character
+
+wc –l
+grep –c
+#uppercase word count
+
+#sed (stream editor)
+initial-consonants.hist
+	???
+final-consonants.hist
+	???
+
+
+
