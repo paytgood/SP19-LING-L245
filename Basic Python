@@ -1,0 +1,350 @@
+The Python Shell
+python3 
+(Python 3.5.2+ (default, Aug  5 2016, 08:07:14) 
+[GCC 6.1.1 20160724] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>)
+
+>>> (run in Python)
+$ (run in terminal)
+CTRL + D (exit shell)
+
+#File: privet.py
+import sys
+print('Привет мир!')
+
+$ python3 privet.py
+
+File: privet.py (replace)
+	import sys
+sys.stdout.write('Привет мир!')
+
+#Difference: read v. write
+
+#File: privet.py (replace)
+import sys
+sys.stdout.write('Привет мир!'\n)
+
+#\n means (add once seen)
+
+#File: privet.py (replace)
+import sys
+
+text = sys.stdin.read()
+
+sys.stdout.write(text)
+
+#Save as cat.py
+
+$ echo "Привет мир" | python3 cat.py
+
+$ echo "Привет мир" | cat
+
+#written in terminal
+
+#File: cat.py (replace)
+import sys
+
+# Read in everything from standard input
+text = sys.stdin.read()
+
+# Output everything to standard output
+sys.stdout.write(text)
+
+$ echo "Привет мир" | python3 cat.py
+#Written in terminal
+Variables
+In Python shell
+>>> a = 5
+>>> a
+
+>>>a=6
+>>> a
+
+#switches
+
+>>>a=5 & 6
+>>>a
+
+# (insert when seen)
+
+Basic Arithmetic
+>>> a
+>>> a/2
+>>> b = a/2
+>>> b
+>>>a+5
+>>>a-5
+>>>a*5
+>>>a/5
+#add, subtract, multiply, divide
+
+Loops
+#File: forloop.py
+import sys
+
+for c in sys.stdin.read():
+ 	   print(c)
+# what does this do? (answer)
+
+File forloop.py (replace)
+	import sys
+
+text = sys.stdin.read()
+for c in text:
+    print(c)
+#what does this do? (answer)
+
+File: whileloop.py
+import sys
+
+c = sys.stdin.read(1)
+while c: 
+ 	   print(c)
+  	  c = sys.stdin.read(1)
+#one character 
+
+File: whileloop.py (replace)
+import sys
+
+line = sys.stdin.readline()
+while line: 
+ 	   print(line)
+  	  line = sys.stdin.readline()
+#one line
+
+Flow control
+File: counter.py
+import sys
+counter = 0 
+for c in sys.stdin.read():
+  	  if c == 'и': 
+     	   counter = counter + 1
+print(counter)
+
+$ echo "Привет мир" | python3 counter.py
+   if c in 'аэиоу':
+        counter = counter + 1
+
+String processing
+>>> s = 'Расположена на восточном побережье Балтийского моря.'
+>>> s
+#Output: 'Расположена на восточном побережье Балтийского моря.'
+>>> s.find('о')
+#Output: 4
+>>> s[4]
+#Output: 'о'
+# What does find() do 
+# find(): answer
+>>> len(s)
+52
+>>> s[52]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: string index out of range
+#What do you need to type to get the last character in a string? What relation does this have with the length of the string?
+>>> s[51]
+'.'
+>>> s[-1]
+'.'
+>>> s[50]
+'я'
+>>> s[-2]
+'я'
+#extract substrings from the string using the slice notation.
+>>> s.find(' ')
+11
+>>> s[0:11]
+'Расположена'
+# first token by taking a slice from the beginning of the string to the first space.
+>>> s.replace(' ', '$')
+'Расположена$на$восточном$побережье$Балтийского$моря.'
+>>> s.replace(' ', '$', 1)
+'Расположена$на восточном побережье Балтийского моря.'
+>>> s.split(' ')
+['Расположена', 'на', 'восточном', 'побережье', 'Балтийского', 'моря.']
+#What would you need to type to get the output 'восточном' ?
+#s[3:11]
+
+>>> ss = s.split(' ')
+>>> ss
+['Расположена', 'на', 'восточном', 'побережье', 'Балтийского', 'моря.']
+>>> '|'.join(ss)
+'Расположена|на|восточном|побережье|Балтийского|моря.'
+#In Python, what are two ways of getting from the string:
+Расположена на восточном побережье Балтийского моря.
+#to the string:
+Расположена|на|восточном|побережье|Балтийского|моря.
+# Character encoding and special characters
+
+>>> hex(ord(u'q'))
+'0x71'
+>>> hex(ord(u'я'))
+'0x44f'
+#Now open up your character map (for example gucharmap) and search for 044f, what do you find ? 
+#
+Now try:
+
+>>> hex(ord(u'е'))
+'0x435'
+>>> hex(ord(u'e'))
+'0x65'
+#What do you notice, what can you say about these two symbols ?
+#
+>>> hex(ord(u'ё'))
+'0x451'
+>>> hex(ord(u'ё'))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: ord() expected a character, but string of length 2 found
+#expects a single character, had combining character
+>>> [hex(ord(c)) for c in u'ё']
+['0x435', '0x308']
+#process separately
+
+
+>>> spisok = []
+>>> spisok.append((1, 'а'))
+>>> spisok.append((2, 'б'))
+>>> spisok.append((3, 'в'))
+>>> spisok
+[(1, 'а'), (2, 'б'), (3, 'в')]
+>>> spisok[1]
+(2, 'б')
+>>> spisok[1][0]
+2
+>>> spisok[1][1]
+'б'
+#tuples: short-length list
+
+>>> spisok = []
+>>> spisok.append(['а', 'б', 'в'])
+>>> spisok.append(['a', 'b', 'v'])
+>>> spisok
+[['а', 'б', 'в'], ['a', 'b', 'v']]
+#lists containing other lists
+
+>>> spisok[0].append('г')
+>>> spisok
+[['а', 'б', 'в', 'г'], ['a', 'b', 'v']]
+>>> spisok.append('г')
+>>> spisok
+[['а', 'б', 'в', 'г'], ['a', 'b', 'v'], 'г']
+
+#embeds within and then within and outside
+
+>>> spisok
+[['а', 'б', 'в'], ['a', 'b', 'v']]
+>>> spisok[-1]
+['a', 'b', 'v']
+>>> spisok[-1][-1]
+'v'
+#end of list with -1
+
+>>> map = {}
+>>> map['a'] = 'b'
+>>> map
+{'a': 'b'}
+>>> map['a']
+'b'
+#mapping from key-a to value b
+
+>>> 'a' in map
+True
+>>> 'b' in map
+False
+>>> 'c' in map
+False
+#key not within map
+
+#use below for frequency list
+import sys
+
+vocab = {} # dict to store frequency list
+
+# for each of the lines of input
+for line in sys.stdin.readlines(): 
+    # the form is the line without spacing
+    form = line.strip()
+    # if we haven't seen it yet, set the frequency count to 0
+    if form not in vocab:
+        vocab[form] = 0
+    vocab[form] = vocab[form] + 1
+
+# print out the frequency list
+for w in vocab:
+    print('%d\t%s' % (vocab[w], w))
+
+# Using .strip() for separating with space
+# Basic Unix sort: use sort-n for numeric order 
+
+freq = []
+
+for w in vocab:
+    freq.append((vocab[w], w))
+
+freq.sort(reverse=True)
+# sort in Python
+
+print(freq[0:4])
+
+[(70049, ','), (45598, '.'), (22727, 'в'), (21083, 'и')]
+
+#freq.sort(reverse=False)???
+
+File input/output
+
+fd = open('freq.txt', 'w+')
+for w in vocab:
+    fd.write('%d\t%s' % (vocab[w], w))
+fd.close()  
+#open, by name and way to open
+#w+, open in write mode, and replace if exists
+import sys
+
+freq = []
+
+fd = open('freq.txt', 'r')
+for line in fd.readlines():
+    line = line.strip('\n')
+    (f, w) = line.split('\t')
+    freq.append((int(f), w))
+#read sorted file
+#int(), string to integer
+# (f, w) = line.split('\t'), change the return type of split() to a tuple 
+
+rank = 1
+min = freq[0][0]
+ranks = []
+for i in range(0, len(freq)): 
+    if freq[i][0] < min: 
+        rank = rank + 1
+        min = freq[i][0]
+    ranks.append((rank, freq[i][0], freq[i][1]))
+# rank.py, takes a command line argument and reads in a frequency list from a file and outputs a ranked frequency list (either to a file or to standard output). 
+#Do you notice anything interesting in the data?---
+# Do you think you could make the code more efficient?---- 
+Spellchecker
+# Example
+echo "There aren't enuf hours in teh day." | python3 spellchecker.py wiki.hist
+There aren't *enuf hours in *teh day.
+#Step 1:
+First load the frequency list from the file argument into a python list
+import sys
+vocab = {}
+
+freq.append((vocab[w], w))
+freq.sort(reverse=True)
+
+#Step 2:
+Then read standard input line by line
+for line in sys.stdin.readlines():
+
+#Step 3:
+Split each line into tokens
+
+#Step 4:
+For each of the tokens, see if it exists in the list
+
+#Step 5:
+If it exists then just print it out, otherwise print it out with an asterisk
